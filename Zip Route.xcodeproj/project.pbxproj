@@ -12,7 +12,9 @@
 		1F31F3262386E40D002A0F0D /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F3252386E40D002A0F0D /* LocationService.swift */; };
 		1F31F3282386E7FF002A0F0D /* HomeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F3272386E7FF002A0F0D /* HomeTableCell.swift */; };
 		1F31F32A2386EF9F002A0F0D /* LocationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F3292386EF9F002A0F0D /* LocationItem.swift */; };
-		1F31F32C238706BB002A0F0D /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F32B238706BB002A0F0D /* SearchBar.swift */; };
+		1F31F32E23871595002A0F0D /* MKAnnotation+CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F32D23871595002A0F0D /* MKAnnotation+CLLocation.swift */; };
+		1F31F3302387163D002A0F0D /* Double+FormattedDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F32F2387163D002A0F0D /* Double+FormattedDistance.swift */; };
+		1F31F33223872E29002A0F0D /* MKMapView+Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F33123872E29002A0F0D /* MKMapView+Bounds.swift */; };
 		1F5A07C42386D6CE003D16EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A07C32386D6CE003D16EC /* AppDelegate.swift */; };
 		1F5A07CD2386D6CF003D16EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F5A07CC2386D6CF003D16EC /* Assets.xcassets */; };
 		1F5A07D02386D6CF003D16EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F5A07CE2386D6CF003D16EC /* LaunchScreen.storyboard */; };
@@ -31,7 +33,9 @@
 		1F31F3252386E40D002A0F0D /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		1F31F3272386E7FF002A0F0D /* HomeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableCell.swift; sourceTree = "<group>"; };
 		1F31F3292386EF9F002A0F0D /* LocationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationItem.swift; sourceTree = "<group>"; };
-		1F31F32B238706BB002A0F0D /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		1F31F32D23871595002A0F0D /* MKAnnotation+CLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKAnnotation+CLLocation.swift"; sourceTree = "<group>"; };
+		1F31F32F2387163D002A0F0D /* Double+FormattedDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+FormattedDistance.swift"; sourceTree = "<group>"; };
+		1F31F33123872E29002A0F0D /* MKMapView+Bounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Bounds.swift"; sourceTree = "<group>"; };
 		1F5A07C02386D6CE003D16EC /* MapIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F5A07C32386D6CE003D16EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F5A07CC2386D6CF003D16EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -63,7 +67,6 @@
 				1F5A07CE2386D6CF003D16EC /* LaunchScreen.storyboard */,
 				1F31F3222386DF51002A0F0D /* BaseNavController.swift */,
 				1F31F3272386E7FF002A0F0D /* HomeTableCell.swift */,
-				1F31F32B238706BB002A0F0D /* SearchBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -149,6 +152,9 @@
 			isa = PBXGroup;
 			children = (
 				1F5A07E72386DC18003D16EC /* UIView+Constraints.swift */,
+				1F31F32D23871595002A0F0D /* MKAnnotation+CLLocation.swift */,
+				1F31F32F2387163D002A0F0D /* Double+FormattedDistance.swift */,
+				1F31F33123872E29002A0F0D /* MKMapView+Bounds.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -224,13 +230,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F5A07DE2386D799003D16EC /* HomeTableDataSource.swift in Sources */,
+				1F31F3302387163D002A0F0D /* Double+FormattedDistance.swift in Sources */,
 				1F5A07DC2386D786003D16EC /* HomeView.swift in Sources */,
 				1F5A07C42386D6CE003D16EC /* AppDelegate.swift in Sources */,
 				1F31F32A2386EF9F002A0F0D /* LocationItem.swift in Sources */,
+				1F31F32E23871595002A0F0D /* MKAnnotation+CLLocation.swift in Sources */,
 				1F31F3212386DF01002A0F0D /* R.swift in Sources */,
 				1F31F3232386DF51002A0F0D /* BaseNavController.swift in Sources */,
+				1F31F33223872E29002A0F0D /* MKMapView+Bounds.swift in Sources */,
 				1F5A07E02386D7C9003D16EC /* HomeViewModel.swift in Sources */,
-				1F31F32C238706BB002A0F0D /* SearchBar.swift in Sources */,
 				1F31F3262386E40D002A0F0D /* LocationService.swift in Sources */,
 				1F5A07E22386D7DC003D16EC /* HomeCoordinator.swift in Sources */,
 				1F5A07DA2386D77E003D16EC /* HomeViewController.swift in Sources */,

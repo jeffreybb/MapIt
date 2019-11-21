@@ -20,7 +20,22 @@ final class HomeView: UIView {
 		let view = MKMapView()
 		view.delegate = self
 		view.showsUserLocation = true
-		view.userTrackingMode = .none
+		view.translatesAutoresizingMaskIntoConstraints = false
+		return view
+	}()
+	
+	private let noLocationsLabel: UILabel = {
+		let label = UILabel()
+		label.numberOfLines = 0
+		label.textAlignment = .center
+		label.textColor = .systemTeal
+		label.text = "Tap 📍 to start\nadding locations to your route"
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
+	
+	private let activityIndicatorView: UIActivityIndicatorView = {
+		let view = UIActivityIndicatorView(style: .medium)
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -32,8 +47,8 @@ final class HomeView: UIView {
 		tf.layer.borderColor = UIColor.white.cgColor
 		tf.layer.cornerRadius = 22
 		tf.layer.shadowColor = UIColor.systemGray.cgColor
-		tf.layer.shadowOpacity = 0.4
-		tf.layer.shadowRadius = 10
+		tf.layer.shadowOpacity = 0.2
+		tf.layer.shadowRadius = 5
 		tf.layer.shadowOffset = CGSize(width: 0, height: 1)
 		tf.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: tf.frame.height))
 		tf.leftViewMode = .always
@@ -57,7 +72,7 @@ final class HomeView: UIView {
 		button.layer.shadowOffset = CGSize(width: 0, height: 1)
 		button.layer.borderColor = UIColor.white.cgColor
 		button.layer.borderWidth = 2
-		button.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
+		button.titleLabel?.font = .systemFont(ofSize: 22, weight: .regular)
 		button.addTarget(self, action: #selector(handleCalculateRoute), for: .touchUpInside)
 		button.translatesAutoresizingMaskIntoConstraints = false
 		return button
@@ -69,12 +84,15 @@ final class HomeView: UIView {
 	
 	private func setupSubviews() {
 		addSubview(mapView)
-		addSubview(tableView)
-		addSubview(button)
+		addSubview(activityIndicatorView)
 		addSubview(searchTextField)
+		addSubview(tableView)
+		addSubview(noLocationsLabel)
+		addSubview(button)
 		
 		fillHorizontally(with: mapView)
 		fillHorizontally(with: tableView)
+		fillHorizontally(with: noLocationsLabel, withPadding: 44)
 		fillHorizontally(with: searchTextField, withPadding: 22)
 		
 		searchBarHeightContraint = searchTextField.heightAnchor.constraint(equalToConstant: 0)
@@ -84,11 +102,16 @@ final class HomeView: UIView {
 			mapView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
 			mapView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height/3),
 			
-			searchTextField.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 14),
+			activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
+			activityIndicatorView.centerYAnchor.constraint(equalTo: searchTextField.centerYAnchor),
+			
+			searchTextField.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 18),
 			searchBarHeightContraint,
 			
-			tableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 6),
+			tableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 14),
 			tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+			
+			noLocationsLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 64),
 			
 			button.centerXAnchor.constraint(equalTo: centerXAnchor),
 			button.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -12),
@@ -124,6 +147,7 @@ final class HomeView: UIView {
 	func showSearchBar() {
 		searchBarHeightContraint.constant = 44
 		animateViews()
+		searchTextField.becomeFirstResponder()
 	}
 	
 	func hideSearchBar() {
@@ -141,18 +165,48 @@ final class HomeView: UIView {
 		animateViews()
 	}
 	
+	func stopActivityIndicator() {
+		activityIndicatorView.stopAnimating()
+	}
+	
+	func hideNoLocationsLabel() {
+		UIView.animate(withDuration: 0.2) {
+			self.noLocationsLabel.alpha = 0
+		}
+	}
+	
+	func showNoLocationsLabel() {
+		UIView.animate(withDuration: 0.2) {
+			self.noLocationsLabel.alpha = 1
+		}
+	}
 	
 	let tableView: UITableView = {
 		let tv = UITableView()
 		tv.rowHeight = 62
 		tv.tableFooterView = UIView()
-		tv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 72, right: 0)
+		tv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 92, right: 0)
 		tv.translatesAutoresizingMaskIntoConstraints = false
 		return tv
 	}()
 	
 	func addAnnotationToMap(_ annotation: MKAnnotation) {
 		mapView.addAnnotation(annotation)
+		mapView.focus()
+	}
+	
+	func removeAnnotation(atLocation location: CLLocation) {
+		guard let annotation = mapView.annotations.first(where: { ($0.coordinate.latitude == location.coordinate.latitude) && ($0.coordinate.longitude == location.coordinate.longitude) }) else {
+			print("no annotation at location: \(location)")
+			return
+		}
+		
+		mapView.removeAnnotation(annotation)
+		mapView.focus()
+	}
+	
+	func removeAllAnnotations() {
+		mapView.removeAnnotations(mapView.annotations)
 	}
 	
 	// MARK: Required
@@ -164,14 +218,15 @@ final class HomeView: UIView {
 
 // MARK: - MKMapViewDelegate
 extension HomeView: MKMapViewDelegate {
-	func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-		let viewRegion = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-		mapView.setRegion(viewRegion, animated: true)
+
+	func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+		
 	}
 }
 
-// MARK: -
+// MARK: - UITextFieldDelegate
 extension HomeView: UITextFieldDelegate {
+	
 	func textFieldDidBeginEditing(_ textField: UITextField) {
 		textField.becomeFirstResponder()
 	}
@@ -183,6 +238,7 @@ extension HomeView: UITextFieldDelegate {
 		textField.text = nil
 		textField.resignFirstResponder()
 		hideSearchBar()
+		activityIndicatorView.startAnimating()
 		return true
 	}
 }

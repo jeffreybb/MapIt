@@ -34,4 +34,29 @@ final class HomeCoordinator: Coordinator {
 		print("showing settings")
 	}
 	
+	func showSearchResults(searchText: String, items: [LocationItem], completion: @escaping (LocationItem)->()) {
+		let ac = UIAlertController(title: "Result for: \(searchText)", message: "select a location to add to your route", preferredStyle: .actionSheet)
+		for item in items {
+			
+			var title = ""
+			if let areaOfInterest = item.name {
+				title += "\(areaOfInterest), \(item.cityName)"
+			} else {
+				title = "\(item.streetAddress), \(item.cityName)"
+			}
+			
+			ac.addAction(UIAlertAction(title: title, style: .default) { _ in
+				completion(item)
+			})
+		}
+		ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+		navigationController.present(ac, animated: true)
+	}
+	
+	func showSearchFailureAlert() {
+		let ac = UIAlertController(title: "No Results", message: "couldn't find any locations matching your search", preferredStyle: .alert)
+		ac.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+		navigationController.present(ac, animated: true)
+	}
+	
 }

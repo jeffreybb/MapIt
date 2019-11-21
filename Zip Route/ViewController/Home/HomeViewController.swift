@@ -13,9 +13,11 @@ import MapKit
 final class HomeViewController: UIViewController {
 	
 	private lazy var contentView = HomeView(delegate: self)
+	
 	private lazy var addLocationButton = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(handleAddNewLocation))
 	private lazy var settingsButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(handleSettings))
-
+	private lazy var resetButton = UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"), style: .plain, target: self, action: #selector(handleReset))
+	
 	override func loadView() {
 		view = contentView
 	}
@@ -39,7 +41,7 @@ final class HomeViewController: UIViewController {
 	// MARK: Private
 	private func setupNavBar() {
 		title = "MapIt"
-		navigationItem.rightBarButtonItem = addLocationButton
+		navigationItem.rightBarButtonItems = [addLocationButton, resetButton]
 		navigationItem.leftBarButtonItem = settingsButton
 
 	}
@@ -55,6 +57,12 @@ final class HomeViewController: UIViewController {
 	
 	@objc func handleSettings() {
 		coordinator.showSettings()
+	}
+	
+	@objc func handleReset() {
+		tableDataSource.reset()
+		contentView.removeAllAnnotations()
+		contentView.showNoLocationsLabel()
 	}
 	
 	// MARK: Init
@@ -93,22 +101,55 @@ extension HomeViewController: HomeViewDelegate {
 
 // MARK: - HomeTableDataSource
 extension HomeViewController: HomeTableDataSourceDelegate {
+	func homeTableDataSource(_ dataSource: HomeTableDataSource, shouldRemoveAnnotationFoLocation location: CLLocation) {
+		contentView.removeAnnotation(atLocation: location)
+	}
 	
+	
+	func homeTableDataSource(_ dataSource: HomeTableDataSource, didChangeNumberOfItems numberOfItems: Int) {
+		
+		if numberOfItems == 0 {
+			contentView.showNoLocationsLabel()
+		}
+		
+		if numberOfItems > 1 {
+			contentView.showCaclulateButton()
+		} else {
+			contentView.hideCalculateButton()
+		}
+	}
 }
 
 // MARK: - HomeViewModelDelegate
 extension HomeViewController: HomeViewModelDelegate {
-	func homeViewModel(didUpdateCurrentLocation annotation: MKAnnotation) {
-		contentView.addAnnotationToMap(annotation)
+	
+	
+	func homeViewModelDidFailSearch() {
+		contentView.stopActivityIndicator()
+		coordinator.showSearchFailureAlert()
 	}
-
-}
-
-// MARK: - UITextFieldDelegate
-extension HomeViewController: UISearchResultsUpdating {
-	func updateSearchResults(for searchController: UISearchController) {
+	
+	func homeViewModel(didUpdateSearchResults results: [LocationItem], searchText: String) {
+		DispatchQueue.main.async { [weak self] in
+			self?.contentView.stopActivityIndicator()
+			
+			self?.coordinator.showSearchResults(searchText: searchText, items: results, completion: { (item) in
+				self?.contentView.hideNoLocationsLabel()
+				self?.tableDataSource.add(item: item)
+				
+				guard let annotation = self?.viewModel.createAnnotation(forLocation: item.mapItem.placemark.location) else { return }
+				
+				self?.contentView.addAnnotationToMap(annotation)
+			})
+			
+		}
 		
 	}
-	
-	
+
+	func homeViewModel(didUpdateCurrentLocation annotation: MKAnnotation) {
+		tableDataSource.currentUserLocation = annotation.location
+//		contentView.addAnnotationToMap(annotation)
+	}
+
 }
+

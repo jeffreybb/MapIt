@@ -8,28 +8,37 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
 struct LocationItem {
-	let placemark: CLPlacemark
+	let mapItem: MKMapItem
 	
 }
 
 extension LocationItem {
+	var name: String? {
+		return mapItem.name
+	}
+	
+	var streetNumber: String {
+		return mapItem.placemark.subThoroughfare ?? ""
+	}
+	
 	var streetName: String {
-		return placemark.subThoroughfare ?? ""
+		return mapItem.placemark.thoroughfare ?? ""
 	}
 	
 	var cityName: String {
-		return placemark.subLocality ?? ""
+		return mapItem.placemark.locality ?? ""
 	}
 	
-	var address: String {
-		return "\(streetName), \(cityName)"
+	var streetAddress: String {
+		return "\(streetNumber) \(streetName)"
 	}
 	
-	func getDistanceFromCurrentLocation(currentLocation: CLLocation) -> Double? {
-		guard let location = placemark.location else { return nil }
+	func distanceFrom(currentLocation: CLLocation) -> Double? {
+		guard let location = mapItem.placemark.location else { return nil }
 		
-		return placemark.location?.distance(from: currentLocation)
+		return location.distance(from: currentLocation)
 	}
 }

@@ -10,7 +10,8 @@ import UIKit
 import CoreLocation
 
 protocol HomeTableDataSourceDelegate: class {
-	
+	func homeTableDataSource(_ dataSource: HomeTableDataSource, didChangeNumberOfItems numberOfItems: Int)
+	func homeTableDataSource(_ dataSource: HomeTableDataSource, shouldRemoveAnnotationFoLocation location: CLLocation)
 }
 
 final class HomeTableDataSource: NSObject {
@@ -18,7 +19,7 @@ final class HomeTableDataSource: NSObject {
 	private unowned let delegate: HomeTableDataSourceDelegate
 	private let tableView: UITableView
 	private var items = [LocationItem]()
-	private var currentLocation: CLLocation?
+	
 	
 	init(tableView: UITableView, delgate: HomeTableDataSourceDelegate) {
 		self.tableView = tableView
@@ -35,11 +36,23 @@ final class HomeTableDataSource: NSObject {
 	}
 	
 	// MARK: Internal
+	var currentUserLocation: CLLocation?
+	
 	func add(item: LocationItem) {
 		items.append(item)
 		tableView.reloadData()
+		updateNumberOfItems()
 	}
 	
+	func reset() {
+		items = [LocationItem]()
+		tableView.reloadData()
+		updateNumberOfItems()
+	}
+	
+	func updateNumberOfItems() {
+		delegate.homeTableDataSource(self, didChangeNumberOfItems: items.count)
+	}
 }
 
 // MARK: - UITableViewDataSource
@@ -49,23 +62,10 @@ extension HomeTableDataSource: UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableCell.resuseIdentifier, for: indexPath)
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableCell.resuseIdentifier, for: indexPath) as? HomeTableCell else { fatalError() }
 		
 		let item = items[indexPath.row]
-
-		cell.textLabel?.text = item.address
-		cell.imageView?.image = UIImage(systemName: "mappin")
-		cell.imageView?.tintColor = .systemTeal
-		
-		let detailText: String
-		if let currentLocation = currentLocation,
-			 let distanceFromCurrentLocation = item.getDistanceFromCurrentLocation(currentLocation: currentLocation) {
-			detailText = "\(distanceFromCurrentLocation) meters away"
-		} else {
-			detailText = "unable to determine distance"
-		}
-		cell.detailTextLabel?.text = detailText
-		
+		cell.configure(withItem: item, currentUserLocation: currentUserLocation)
 		return cell
 	}
 }
@@ -94,5 +94,24 @@ extension HomeTableDataSource: UITableViewDelegate {
 		label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12).isActive = true
 		
 		return view
+	}
+	
+	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		let delete = UIContextualAction(style: .destructive, title: "Remove") { [weak self] (action, _, completion) in
+			
+			guard let aSelf = self else { return }
+			
+			if let location = aSelf.items[indexPath.row].mapItem.placemark.location {
+				aSelf.delegate.homeTableDataSource(aSelf, shouldRemoveAnnotationFoLocation: location)
+			}
+			
+			aSelf.items.remove(at: indexPath.row)
+			tableView.deleteRows(at: [indexPath], with: .automatic)
+			aSelf.updateNumberOfItems()
+			
+			completion(true)
+		}
+		let config = UISwipeActionsConfiguration(actions: [delete])
+		return config
 	}
 }

@@ -35,6 +35,22 @@ final class LocationService: NSObject {
 		locationManager.requestLocation()
 	}
 	
+	func searchForMapItems(atAddress address: String, completion: @escaping ([MKMapItem]?)->()) {
+		let request = MKLocalSearch.Request()
+		request.naturalLanguageQuery = address
+		
+		let search = MKLocalSearch(request: request)
+		search.start { (response, error) in
+			
+			if let error = error {
+				print(error.localizedDescription)
+			}
+			
+			completion(response?.mapItems)
+			
+		}
+	}
+	
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -46,16 +62,17 @@ extension LocationService: CLLocationManagerDelegate {
 			
 		case .notDetermined:
 			print("notDetermined")
+			requestAuthorization()
 		case .restricted:
 			print("restricted")
 		case .denied:
 			print("denied")
 		case .authorizedAlways:
 			print("authorizedAlways")
-			locationManager.requestLocation()
+			requestCurrentLocation()
 		case .authorizedWhenInUse:
 			print("authorizedWhenInUse")
-			locationManager.requestLocation()
+			requestCurrentLocation()
 		@unknown default:
 			break
 		}

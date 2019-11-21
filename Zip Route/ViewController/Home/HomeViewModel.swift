@@ -12,6 +12,8 @@ import MapKit
 
 protocol HomeViewModelDelegate: class {
 	func homeViewModel(didUpdateCurrentLocation annotation: MKAnnotation)
+	func homeViewModel(didUpdateSearchResults results: [LocationItem], searchText: String)
+	func homeViewModelDidFailSearch()
 }
 
 final class HomeViewModel {
@@ -21,8 +23,23 @@ final class HomeViewModel {
 		locationService.requestAuthorization()
 	}
 	
+	func createAnnotation(forLocation location: CLLocation) -> MKAnnotation {
+		let annotation = MKPointAnnotation()
+		annotation.coordinate = location.coordinate
+		return annotation
+	}
+	
 	func searchForAddress(_ address: String) {
 		print("searching for: \(address)")
+		locationService.searchForMapItems(atAddress: address) { [weak self] (mapItems) in
+			guard let mapItems = mapItems else {
+				self?.delegate?.homeViewModelDidFailSearch()
+				return
+			}
+			
+			let locationItems = mapItems.map { LocationItem(mapItem: $0) }
+			self?.delegate?.homeViewModel(didUpdateSearchResults: locationItems, searchText: address)
+		}
 	}
 	
 	weak var delegate: HomeViewModelDelegate?
@@ -30,11 +47,9 @@ final class HomeViewModel {
 	// MARK: Private
 	
 	private lazy var locationService = LocationService(delegate: self)
-	
-	private func createAnnotation(forLocation location: CLLocation) -> MKAnnotation {
-		let annotation = MKPointAnnotation()
-		annotation.coordinate = location.coordinate
-		return annotation
+
+	init() {
+		locationService.requestCurrentLocation()
 	}
 	
 }
