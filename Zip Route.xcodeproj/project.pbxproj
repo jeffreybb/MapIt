@@ -7,23 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F31F3212386DF01002A0F0D /* R.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F3202386DF01002A0F0D /* R.swift */; };
+		1F31F3232386DF51002A0F0D /* BaseNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F3222386DF51002A0F0D /* BaseNavController.swift */; };
+		1F31F3262386E40D002A0F0D /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F3252386E40D002A0F0D /* LocationService.swift */; };
+		1F31F3282386E7FF002A0F0D /* HomeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F3272386E7FF002A0F0D /* HomeTableCell.swift */; };
 		1F5A07C42386D6CE003D16EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A07C32386D6CE003D16EC /* AppDelegate.swift */; };
-		1F5A07C62386D6CE003D16EC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A07C52386D6CE003D16EC /* SceneDelegate.swift */; };
-		1F5A07C82386D6CE003D16EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A07C72386D6CE003D16EC /* ViewController.swift */; };
-		1F5A07CB2386D6CE003D16EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F5A07C92386D6CE003D16EC /* Main.storyboard */; };
 		1F5A07CD2386D6CF003D16EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F5A07CC2386D6CF003D16EC /* Assets.xcassets */; };
 		1F5A07D02386D6CF003D16EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F5A07CE2386D6CF003D16EC /* LaunchScreen.storyboard */; };
+		1F5A07DA2386D77E003D16EC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A07D92386D77E003D16EC /* HomeViewController.swift */; };
+		1F5A07DC2386D786003D16EC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A07DB2386D786003D16EC /* HomeView.swift */; };
+		1F5A07DE2386D799003D16EC /* HomeTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A07DD2386D799003D16EC /* HomeTableDataSource.swift */; };
+		1F5A07E02386D7C9003D16EC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A07DF2386D7C9003D16EC /* HomeViewModel.swift */; };
+		1F5A07E22386D7DC003D16EC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A07E12386D7DC003D16EC /* HomeCoordinator.swift */; };
+		1F5A07E52386D850003D16EC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A07E42386D850003D16EC /* Coordinator.swift */; };
+		1F5A07E82386DC18003D16EC /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A07E72386DC18003D16EC /* UIView+Constraints.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F5A07C02386D6CE003D16EC /* Zip Route.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zip Route.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F31F3202386DF01002A0F0D /* R.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.swift; sourceTree = "<group>"; };
+		1F31F3222386DF51002A0F0D /* BaseNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavController.swift; sourceTree = "<group>"; };
+		1F31F3252386E40D002A0F0D /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		1F31F3272386E7FF002A0F0D /* HomeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableCell.swift; sourceTree = "<group>"; };
+		1F5A07C02386D6CE003D16EC /* MapIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F5A07C32386D6CE003D16EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1F5A07C52386D6CE003D16EC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1F5A07C72386D6CE003D16EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1F5A07CA2386D6CE003D16EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F5A07CC2386D6CF003D16EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F5A07CF2386D6CF003D16EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F5A07D12386D6CF003D16EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F5A07D92386D77E003D16EC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1F5A07DB2386D786003D16EC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		1F5A07DD2386D799003D16EC /* HomeTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableDataSource.swift; sourceTree = "<group>"; };
+		1F5A07DF2386D7C9003D16EC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		1F5A07E12386D7DC003D16EC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		1F5A07E42386D850003D16EC /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		1F5A07E72386DC18003D16EC /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +53,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F31F31E2386DDD8002A0F0D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1F5A07CE2386D6CF003D16EC /* LaunchScreen.storyboard */,
+				1F31F3222386DF51002A0F0D /* BaseNavController.swift */,
+				1F31F3272386E7FF002A0F0D /* HomeTableCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1F31F31F2386DEF1002A0F0D /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				1F31F3202386DF01002A0F0D /* R.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		1F31F3242386E3FD002A0F0D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				1F31F3252386E40D002A0F0D /* LocationService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		1F5A07B72386D6CE003D16EC = {
 			isa = PBXGroup;
 			children = (
@@ -48,7 +90,7 @@
 		1F5A07C12386D6CE003D16EC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1F5A07C02386D6CE003D16EC /* Zip Route.app */,
+				1F5A07C02386D6CE003D16EC /* MapIt.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -56,15 +98,53 @@
 		1F5A07C22386D6CE003D16EC /* Zip Route */ = {
 			isa = PBXGroup;
 			children = (
-				1F5A07C32386D6CE003D16EC /* AppDelegate.swift */,
-				1F5A07C52386D6CE003D16EC /* SceneDelegate.swift */,
-				1F5A07C72386D6CE003D16EC /* ViewController.swift */,
-				1F5A07C92386D6CE003D16EC /* Main.storyboard */,
-				1F5A07CC2386D6CF003D16EC /* Assets.xcassets */,
-				1F5A07CE2386D6CF003D16EC /* LaunchScreen.storyboard */,
 				1F5A07D12386D6CF003D16EC /* Info.plist */,
+				1F5A07C32386D6CE003D16EC /* AppDelegate.swift */,
+				1F5A07CC2386D6CF003D16EC /* Assets.xcassets */,
+				1F31F3242386E3FD002A0F0D /* Service */,
+				1F5A07E32386D841003D16EC /* Protocol */,
+				1F31F31E2386DDD8002A0F0D /* View */,
+				1F5A07D72386D70E003D16EC /* ViewController */,
+				1F5A07E62386DBC3003D16EC /* Extension */,
+				1F31F31F2386DEF1002A0F0D /* Resource */,
 			);
 			path = "Zip Route";
+			sourceTree = "<group>";
+		};
+		1F5A07D72386D70E003D16EC /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1F5A07D82386D716003D16EC /* Home */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		1F5A07D82386D716003D16EC /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1F5A07D92386D77E003D16EC /* HomeViewController.swift */,
+				1F5A07DB2386D786003D16EC /* HomeView.swift */,
+				1F5A07DD2386D799003D16EC /* HomeTableDataSource.swift */,
+				1F5A07DF2386D7C9003D16EC /* HomeViewModel.swift */,
+				1F5A07E12386D7DC003D16EC /* HomeCoordinator.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		1F5A07E32386D841003D16EC /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				1F5A07E42386D850003D16EC /* Coordinator.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		1F5A07E62386DBC3003D16EC /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				1F5A07E72386DC18003D16EC /* UIView+Constraints.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,7 +164,7 @@
 			);
 			name = "Zip Route";
 			productName = "Zip Route";
-			productReference = 1F5A07C02386D6CE003D16EC /* Zip Route.app */;
+			productReference = 1F5A07C02386D6CE003D16EC /* MapIt.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -127,7 +207,6 @@
 			files = (
 				1F5A07D02386D6CF003D16EC /* LaunchScreen.storyboard in Resources */,
 				1F5A07CD2386D6CF003D16EC /* Assets.xcassets in Resources */,
-				1F5A07CB2386D6CE003D16EC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +217,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F5A07C82386D6CE003D16EC /* ViewController.swift in Sources */,
+				1F5A07DE2386D799003D16EC /* HomeTableDataSource.swift in Sources */,
+				1F5A07DC2386D786003D16EC /* HomeView.swift in Sources */,
 				1F5A07C42386D6CE003D16EC /* AppDelegate.swift in Sources */,
-				1F5A07C62386D6CE003D16EC /* SceneDelegate.swift in Sources */,
+				1F31F3212386DF01002A0F0D /* R.swift in Sources */,
+				1F31F3232386DF51002A0F0D /* BaseNavController.swift in Sources */,
+				1F5A07E02386D7C9003D16EC /* HomeViewModel.swift in Sources */,
+				1F31F3262386E40D002A0F0D /* LocationService.swift in Sources */,
+				1F5A07E22386D7DC003D16EC /* HomeCoordinator.swift in Sources */,
+				1F5A07DA2386D77E003D16EC /* HomeViewController.swift in Sources */,
+				1F5A07E52386D850003D16EC /* Coordinator.swift in Sources */,
+				1F5A07E82386DC18003D16EC /* UIView+Constraints.swift in Sources */,
+				1F31F3282386E7FF002A0F0D /* HomeTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1F5A07C92386D6CE003D16EC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1F5A07CA2386D6CE003D16EC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1F5A07CE2386D6CF003D16EC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -287,14 +367,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CP6P8U926R;
 				INFOPLIST_FILE = "Zip Route/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.oversphere.Zip-Route";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = net.oversphere.mapit;
+				PRODUCT_NAME = MapIt;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -305,14 +386,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CP6P8U926R;
 				INFOPLIST_FILE = "Zip Route/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.oversphere.Zip-Route";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = net.oversphere.mapit;
+				PRODUCT_NAME = MapIt;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -1,0 +1,37 @@
+//
+//  HomeCoorinator.swift
+//  Zip Route
+//
+//  Created by Jeff on 11/21/19.
+//  Copyright © 2019 OverSphere LLC. All rights reserved.
+//
+
+import UIKit
+
+final class HomeCoordinator: Coordinator {
+	
+	var navigationController: UINavigationController
+	
+	init(navigationController: UINavigationController) {
+		self.navigationController = navigationController
+	}
+	
+	func start() {
+		let viewModel = HomeViewModel()
+		let vc = HomeViewController(viewModel: viewModel, coordinator: self)
+		navigationController.pushViewController(vc, animated: false)
+	}
+	
+	func showNeedLocationAlert(completion: @escaping ()->()) {
+		let ac = UIAlertController(title: "Hello traveller!", message: "in order to get you where you to go in the shortest amout of time, we're going to need to 'Always' have your location. Don't worry, this information never leaves your device and is only used to determine your optimal route, and navigate you to your destinations", preferredStyle: .alert)
+		ac.addAction(UIAlertAction(title: "Understood", style: .default) { _ in
+			completion()
+		})
+		navigationController.present(ac, animated: true)
+	}
+	
+	func showSettings() {
+		print("showing settings")
+	}
+	
+}
