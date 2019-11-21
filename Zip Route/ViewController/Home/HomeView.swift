@@ -27,6 +27,13 @@ final class HomeView: UIView {
 		button.backgroundColor = .systemTeal
 		button.setTitle("Caculate Route", for: [])
 		button.setTitleColor(.white, for: [])
+		button.layer.cornerRadius = 52/2
+		button.layer.shadowColor = UIColor.systemGray3.cgColor
+		button.layer.shadowOpacity = 1
+		button.layer.shadowRadius = 10
+		button.layer.shadowOffset = CGSize(width: 0, height: 1)
+		button.layer.borderColor = UIColor.white.cgColor
+		button.layer.borderWidth = 2
 		button.titleLabel?.font = .systemFont(ofSize: 22, weight: .medium)
 		button.addTarget(self, action: #selector(handleCalculateRoute), for: .touchUpInside)
 		button.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +41,7 @@ final class HomeView: UIView {
 	}()
 	
 	private func setupView() {
-		backgroundColor = .systemTeal
+		backgroundColor = .systemBackground
 	}
 	
 	private func setupSubviews() {
@@ -44,17 +51,17 @@ final class HomeView: UIView {
 		
 		fillHorizontally(with: mapView)
 		fillHorizontally(with: tableView)
-		fillHorizontally(with: calculateButton)
+		fillHorizontally(with: calculateButton, withPadding: 22)
 		
 		NSLayoutConstraint.activate([
 			mapView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
 			mapView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height/3),
 			
 			tableView.topAnchor.constraint(equalTo: mapView.bottomAnchor),
-			tableView.bottomAnchor.constraint(equalTo: calculateButton.topAnchor),
+			tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
 			
-			calculateButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-			calculateButton.heightAnchor.constraint(equalToConstant: 60)
+			calculateButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -12),
+			calculateButton.heightAnchor.constraint(equalToConstant: 52)
 		])
 		
 		
@@ -79,9 +86,15 @@ final class HomeView: UIView {
 	let tableView: UITableView = {
 		let tv = UITableView()
 		tv.rowHeight = 62
+		tv.tableFooterView = UIView()
+		tv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 72, right: 0)
 		tv.translatesAutoresizingMaskIntoConstraints = false
 		return tv
 	}()
+	
+	func addAnnotationToMap(_ annotation: MKAnnotation) {
+		mapView.addAnnotation(annotation)
+	}
 	
 	// MARK: Required
 	required init?(coder: NSCoder) {

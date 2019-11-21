@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol HomeTableDataSourceDelegate: class {
 	
@@ -16,6 +17,8 @@ final class HomeTableDataSource: NSObject {
 	
 	private unowned let delegate: HomeTableDataSourceDelegate
 	private let tableView: UITableView
+	private var items = [LocationItem]()
+	private var currentLocation: CLLocation?
 	
 	init(tableView: UITableView, delgate: HomeTableDataSourceDelegate) {
 		self.tableView = tableView
@@ -32,8 +35,9 @@ final class HomeTableDataSource: NSObject {
 	}
 	
 	// MARK: Internal
-	func addItem() {
-		
+	func add(item: LocationItem) {
+		items.append(item)
+		tableView.reloadData()
 	}
 	
 }
@@ -41,15 +45,27 @@ final class HomeTableDataSource: NSObject {
 // MARK: - UITableViewDataSource
 extension HomeTableDataSource: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 5
+		return items.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableCell.resuseIdentifier, for: indexPath)
-		cell.textLabel?.text = "123 Fake St., Boston"
-		cell.detailTextLabel?.text = "5mi away"
+		
+		let item = items[indexPath.row]
+
+		cell.textLabel?.text = item.address
 		cell.imageView?.image = UIImage(systemName: "mappin")
 		cell.imageView?.tintColor = .systemTeal
+		
+		let detailText: String
+		if let currentLocation = currentLocation,
+			 let distanceFromCurrentLocation = item.getDistanceFromCurrentLocation(currentLocation: currentLocation) {
+			detailText = "\(distanceFromCurrentLocation) meters away"
+		} else {
+			detailText = "unable to determine distance"
+		}
+		cell.detailTextLabel?.text = detailText
+		
 		return cell
 	}
 }

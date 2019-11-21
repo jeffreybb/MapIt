@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
 final class HomeViewController: UIViewController {
 	
@@ -22,6 +24,14 @@ final class HomeViewController: UIViewController {
 		super.viewDidLoad()
 		setupNavBar()
 		setupTableDataSource()
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		coordinator.showNeedLocationAlert { [weak self] in
+			self?.viewModel.requestLocationAuthorization()
+		}
 	}
 	
 	// MARK: Private
@@ -54,6 +64,8 @@ final class HomeViewController: UIViewController {
 		self.viewModel = viewModel
 		self.coordinator = coordinator
 		super.init(nibName: nil, bundle: nil)
+		
+		self.viewModel.delegate = self
 	}
 	
 	// MARK: Required
@@ -75,4 +87,12 @@ extension HomeViewController: HomeViewDelegate {
 // MARK: - HomeTableDataSource
 extension HomeViewController: HomeTableDataSourceDelegate {
 	
+}
+
+// MARK: - HomeViewModelDelegate
+extension HomeViewController: HomeViewModelDelegate {
+	func homeViewModel(didUpdateCurrentLocation annotation: MKAnnotation) {
+		contentView.addAnnotationToMap(annotation)
+	}
+
 }
