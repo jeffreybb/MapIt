@@ -28,6 +28,7 @@ final class HomeTableDataSource: NSObject {
 	private func setupTableView() {
 		tableView.register(HomeTableCell.self, forCellReuseIdentifier: HomeTableCell.resuseIdentifier)
 		tableView.dataSource = self
+		tableView.delegate = self
 	}
 	
 	// MARK: Internal
@@ -37,7 +38,7 @@ final class HomeTableDataSource: NSObject {
 	
 }
 
-// MARK:
+// MARK: - UITableViewDataSource
 extension HomeTableDataSource: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return 5
@@ -51,6 +52,31 @@ extension HomeTableDataSource: UITableViewDataSource {
 		cell.imageView?.tintColor = .systemTeal
 		return cell
 	}
+}
+
+// MARK: - UITableViewDelegate
+extension HomeTableDataSource: UITableViewDelegate {
 	
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 52
+	}
 	
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let view = UIView()
+		view.backgroundColor = .systemBackground
+		view.heightAnchor.constraint(equalToConstant: 52).isActive = true
+		
+		let label = UILabel()
+		view.addSubview(label)
+		
+		label.translatesAutoresizingMaskIntoConstraints = false
+		label.text = "Locations"
+		label.font = .systemFont(ofSize: 16, weight: .medium)
+		label.textColor = .secondaryLabel
+		label.textAlignment = .left
+		label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+		label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12).isActive = true
+		
+		return view
+	}
 }

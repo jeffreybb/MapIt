@@ -65,6 +65,10 @@ final class HomeViewController: UIViewController {
 
 // MARK: - HomeViewDelegate
 extension HomeViewController: HomeViewDelegate {
+	func homeViewShouldCalculateRoute(_ view: HomeView) {
+		print("calculating route")
+	}
+	
 	
 }
 
