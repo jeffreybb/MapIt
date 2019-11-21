@@ -15,7 +15,7 @@ final class HomeViewController: UIViewController {
 	private lazy var contentView = HomeView(delegate: self)
 	private lazy var addLocationButton = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(handleAddNewLocation))
 	private lazy var settingsButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(handleSettings))
-	
+
 	override func loadView() {
 		view = contentView
 	}
@@ -29,9 +29,11 @@ final class HomeViewController: UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		coordinator.showNeedLocationAlert { [weak self] in
-			self?.viewModel.requestLocationAuthorization()
-		}
+		
+		
+//		coordinator.showNeedLocationAlert { [weak self] in
+//			self?.viewModel.requestLocationAuthorization()
+//		}
 	}
 	
 	// MARK: Private
@@ -39,6 +41,7 @@ final class HomeViewController: UIViewController {
 		title = "MapIt"
 		navigationItem.rightBarButtonItem = addLocationButton
 		navigationItem.leftBarButtonItem = settingsButton
+
 	}
 	
 	private func setupTableDataSource() {
@@ -47,7 +50,7 @@ final class HomeViewController: UIViewController {
 	
 	// MARK: Handler
 	@objc func handleAddNewLocation() {
-		
+		contentView.showSearchBar()
 	}
 	
 	@objc func handleSettings() {
@@ -77,6 +80,10 @@ final class HomeViewController: UIViewController {
 
 // MARK: - HomeViewDelegate
 extension HomeViewController: HomeViewDelegate {
+	func homeView(_ view: HomeView, shouldSearchWithText text: String) {
+		viewModel.searchForAddress(text)
+	}
+	
 	func homeViewShouldCalculateRoute(_ view: HomeView) {
 		print("calculating route")
 	}
@@ -95,4 +102,13 @@ extension HomeViewController: HomeViewModelDelegate {
 		contentView.addAnnotationToMap(annotation)
 	}
 
+}
+
+// MARK: - UITextFieldDelegate
+extension HomeViewController: UISearchResultsUpdating {
+	func updateSearchResults(for searchController: UISearchController) {
+		
+	}
+	
+	
 }

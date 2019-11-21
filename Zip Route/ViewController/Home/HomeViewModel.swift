@@ -21,6 +21,10 @@ final class HomeViewModel {
 		locationService.requestAuthorization()
 	}
 	
+	func searchForAddress(_ address: String) {
+		print("searching for: \(address)")
+	}
+	
 	weak var delegate: HomeViewModelDelegate?
 	
 	// MARK: Private

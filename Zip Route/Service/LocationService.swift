@@ -31,6 +31,10 @@ final class LocationService: NSObject {
 		locationManager.requestAlwaysAuthorization()
 	}
 	
+	func requestCurrentLocation() {
+		locationManager.requestLocation()
+	}
+	
 }
 
 // MARK: - CLLocationManagerDelegate
