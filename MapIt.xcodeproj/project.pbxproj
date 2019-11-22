@@ -90,7 +90,7 @@
 		1F5A07B72386D6CE003D16EC = {
 			isa = PBXGroup;
 			children = (
-				1F5A07C22386D6CE003D16EC /* Zip Route */,
+				1F5A07C22386D6CE003D16EC /* MapIt */,
 				1F5A07C12386D6CE003D16EC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,7 +103,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1F5A07C22386D6CE003D16EC /* Zip Route */ = {
+		1F5A07C22386D6CE003D16EC /* MapIt */ = {
 			isa = PBXGroup;
 			children = (
 				1F5A07D12386D6CF003D16EC /* Info.plist */,
@@ -116,7 +116,7 @@
 				1F5A07E62386DBC3003D16EC /* Extension */,
 				1F31F31F2386DEF1002A0F0D /* Resource */,
 			);
-			path = "Zip Route";
+			path = MapIt;
 			sourceTree = "<group>";
 		};
 		1F5A07D72386D70E003D16EC /* ViewController */ = {
@@ -162,9 +162,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1F5A07BF2386D6CE003D16EC /* Zip Route */ = {
+		1F5A07BF2386D6CE003D16EC /* MapIt */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F5A07D42386D6CF003D16EC /* Build configuration list for PBXNativeTarget "Zip Route" */;
+			buildConfigurationList = 1F5A07D42386D6CF003D16EC /* Build configuration list for PBXNativeTarget "MapIt" */;
 			buildPhases = (
 				1F5A07BC2386D6CE003D16EC /* Sources */,
 				1F5A07BD2386D6CE003D16EC /* Frameworks */,
@@ -174,7 +174,7 @@
 			);
 			dependencies = (
 			);
-			name = "Zip Route";
+			name = MapIt;
 			productName = "Zip Route";
 			productReference = 1F5A07C02386D6CE003D16EC /* MapIt.app */;
 			productType = "com.apple.product-type.application";
@@ -194,7 +194,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1F5A07BB2386D6CE003D16EC /* Build configuration list for PBXProject "Zip Route" */;
+			buildConfigurationList = 1F5A07BB2386D6CE003D16EC /* Build configuration list for PBXProject "MapIt" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -207,7 +207,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1F5A07BF2386D6CE003D16EC /* Zip Route */,
+				1F5A07BF2386D6CE003D16EC /* MapIt */,
 			);
 		};
 /* End PBXProject section */
@@ -382,7 +382,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CP6P8U926R;
-				INFOPLIST_FILE = "Zip Route/Info.plist";
+				INFOPLIST_FILE = MapIt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -401,7 +401,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CP6P8U926R;
-				INFOPLIST_FILE = "Zip Route/Info.plist";
+				INFOPLIST_FILE = MapIt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -417,7 +417,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1F5A07BB2386D6CE003D16EC /* Build configuration list for PBXProject "Zip Route" */ = {
+		1F5A07BB2386D6CE003D16EC /* Build configuration list for PBXProject "MapIt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F5A07D22386D6CF003D16EC /* Debug */,
@@ -426,7 +426,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F5A07D42386D6CF003D16EC /* Build configuration list for PBXNativeTarget "Zip Route" */ = {
+		1F5A07D42386D6CF003D16EC /* Build configuration list for PBXNativeTarget "MapIt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F5A07D52386D6CF003D16EC /* Debug */,

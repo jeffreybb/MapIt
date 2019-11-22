@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Zip Route.xcodeproj">
+      location = "self:/Users/jeff/Documents/Xcode Projects/MapIt/MapIt.xcodeproj">
    </FileRef>
 </Workspace>
