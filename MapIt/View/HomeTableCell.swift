@@ -39,9 +39,6 @@ final class HomeTableCell: UITableViewCell {
 	
 	// MARK: Internal
 	func configure(withItem item: LocationItem, currentUserLocation: CLLocation?) {
-		
-		
-		
 		textLabel?.text = item.name != nil ? item.name! : item.streetAddress
 		detailTextLabel?.text = item.cityName
 		imageView?.image = UIImage(systemName: "mappin")
@@ -50,7 +47,6 @@ final class HomeTableCell: UITableViewCell {
 		if let currentLocation = currentUserLocation, let distance = item.distanceFrom(currentLocation: currentLocation) {
 			distanceLabel.text = distance.formattedDistance
 		}
-		
 	}
 	
 	// MARK: Required

@@ -10,7 +10,7 @@ import UIKit
 
 struct R {
 	struct Color {
-		static let polyline: [UIColor] = [.systemTeal, .systemYellow, .systemPink, .systemPurple, .systemRed, .systemIndigo, .systemBlue]
+		static let polyline: [UIColor] = [.systemTeal, .systemPink, .systemPurple, .systemRed, .systemIndigo, .systemBlue]
 	}
 }
 

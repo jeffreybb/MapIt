@@ -66,7 +66,6 @@ extension HomeViewController: HomeViewDelegate {
 	func homeViewShouldReset(_ view: HomeView) {
 		tableDataSource.reset()
 		contentView.clearMap()
-		contentView.showNoLocationsLabel()
 	}
 	
 	func homeView(_ view: HomeView, shouldSearchWithText text: String) {
@@ -76,8 +75,6 @@ extension HomeViewController: HomeViewDelegate {
 	func homeViewShouldDisplayRoute(_ view: HomeView) {
 		viewModel.calculateRoute()
 	}
-	
-	
 }
 
 // MARK: - HomeTableDataSource

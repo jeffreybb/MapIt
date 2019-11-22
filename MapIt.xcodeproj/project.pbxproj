@@ -104,6 +104,7 @@
 				1F31F3242386E3FD002A0F0D /* Service */,
 				1F5A07E32386D841003D16EC /* Protocol */,
 				1F31F31E2386DDD8002A0F0D /* View */,
+				1FDC310E23884DCA008A6DB9 /* Model */,
 				1F5A07D72386D70E003D16EC /* ViewController */,
 				1FDC310B238849B0008A6DB9 /* Resource */,
 				1F5A07E62386DBC3003D16EC /* Extension */,
@@ -127,7 +128,6 @@
 				1F5A07DD2386D799003D16EC /* HomeTableDataSource.swift */,
 				1F5A07DF2386D7C9003D16EC /* HomeViewModel.swift */,
 				1F5A07E12386D7DC003D16EC /* HomeCoordinator.swift */,
-				1F31F3292386EF9F002A0F0D /* LocationItem.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -157,6 +157,14 @@
 				1FDC310C238849C4008A6DB9 /* R.swift */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		1FDC310E23884DCA008A6DB9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1F31F3292386EF9F002A0F0D /* LocationItem.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

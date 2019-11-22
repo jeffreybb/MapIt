@@ -223,7 +223,8 @@ final class HomeView: UIView {
 	}
 	
 	func removeAnnotation(atCoordinate coordinate: CLLocationCoordinate2D) {
-		guard let annotation = mapView.annotations.first(where: { ($0.coordinate.latitude == coordinate.latitude) && ($0.coordinate.longitude == coordinate.longitude) })
+		guard let annotation = mapView.annotations.first(where: { ($0.coordinate.latitude == coordinate.latitude)
+																													&& ($0.coordinate.longitude == coordinate.longitude) })
 		else { return }
 		
 		mapView.removeAnnotation(annotation)
@@ -235,6 +236,7 @@ final class HomeView: UIView {
 		mapView.removeAnnotations(mapView.annotations)
 		mapView.removeOverlays(mapView.overlays)
 		mapView.focus()
+		showNoLocationsLabel()
 	}
 	
 	func addRouteToMap(route: [MKRoute]) {
@@ -289,7 +291,9 @@ extension HomeView: MKMapViewDelegate {
 			let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
 			renderer.lineWidth = 5
 			
-			let index = mapView.overlays.count
+			guard mapView.overlays.count > 0 else { return renderer }
+			
+			let index = mapView.overlays.count - 1
 			renderer.strokeColor = index < R.Color.polyline.endIndex
 				? R.Color.polyline[index]
 				: .systemTeal

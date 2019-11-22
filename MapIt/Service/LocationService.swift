@@ -52,12 +52,10 @@ final class LocationService: NSObject {
 	}
 	
 	func requestRoute(forMapItems mapItems: [MKMapItem], completion: @escaping ([MKRoute])->()) {
-		print("requesting Route")
 		var routes = [MKRoute]()
 		
 		let group = DispatchGroup()
 		for (index, item) in mapItems.enumerated() {
-			print(index)
 			group.enter()
 			
 			guard index < mapItems.endIndex - 1 else {
@@ -74,7 +72,6 @@ final class LocationService: NSObject {
 		}
 		
 		group.notify(queue: .main) {
-			print("ah dun!")
 			completion(routes)
 		}
 		

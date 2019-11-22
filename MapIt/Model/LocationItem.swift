@@ -12,7 +12,6 @@ import MapKit
 
 struct LocationItem {
 	let mapItem: MKMapItem
-	
 }
 
 extension LocationItem {
