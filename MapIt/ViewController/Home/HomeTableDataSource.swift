@@ -11,7 +11,7 @@ import CoreLocation
 
 protocol HomeTableDataSourceDelegate: class {
 	func homeTableDataSource(_ dataSource: HomeTableDataSource, didChangeNumberOfItems numberOfItems: Int)
-	func homeTableDataSource(_ dataSource: HomeTableDataSource, shouldRemoveAnnotationFoLocation location: CLLocation)
+	func homeTableDataSource(_ dataSource: HomeTableDataSource, shouldRemoveAnnotationAtCoordinate coordinate: CLLocationCoordinate2D)
 }
 
 final class HomeTableDataSource: NSObject {
@@ -101,8 +101,8 @@ extension HomeTableDataSource: UITableViewDelegate {
 			
 			guard let aSelf = self else { return }
 			
-			if let location = aSelf.items[indexPath.row].mapItem.placemark.location {
-				aSelf.delegate.homeTableDataSource(aSelf, shouldRemoveAnnotationFoLocation: location)
+			if let coordinate = aSelf.items[indexPath.row].mapItem.placemark.location?.coordinate {
+				aSelf.delegate.homeTableDataSource(aSelf, shouldRemoveAnnotationAtCoordinate: coordinate)
 			}
 			
 			aSelf.items.remove(at: indexPath.row)
@@ -111,6 +111,8 @@ extension HomeTableDataSource: UITableViewDelegate {
 			
 			completion(true)
 		}
+		
+		delete.backgroundColor = .systemRed
 		let config = UISwipeActionsConfiguration(actions: [delete])
 		return config
 	}

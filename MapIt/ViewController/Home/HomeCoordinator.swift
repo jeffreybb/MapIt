@@ -34,13 +34,13 @@ final class HomeCoordinator: Coordinator {
 		print("showing settings")
 	}
 	
-	func showSearchResults(searchText: String, items: [LocationItem], completion: @escaping (LocationItem)->()) {
+	func showSearchResults(searchText: String, results: [LocationItem], completion: @escaping (LocationItem)->()) {
 		let ac = UIAlertController(title: "Result for: \(searchText)", message: "select a location to add to your route", preferredStyle: .actionSheet)
-		for item in items {
+		for item in results {
 			
-			var title = ""
+			let title: String
 			if let areaOfInterest = item.name {
-				title += "\(areaOfInterest), \(item.cityName)"
+				title = "\(areaOfInterest), \(item.cityName)"
 			} else {
 				title = "\(item.streetAddress), \(item.cityName)"
 			}
@@ -49,6 +49,7 @@ final class HomeCoordinator: Coordinator {
 				completion(item)
 			})
 		}
+		
 		ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 		navigationController.present(ac, animated: true)
 	}

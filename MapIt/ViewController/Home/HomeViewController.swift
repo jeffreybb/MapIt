@@ -13,11 +13,7 @@ import MapKit
 final class HomeViewController: UIViewController {
 	
 	private lazy var contentView = HomeView(delegate: self)
-	
-	private lazy var addLocationButton = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(handleAddNewLocation))
-	private lazy var settingsButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(handleSettings))
-	private lazy var resetButton = UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"), style: .plain, target: self, action: #selector(handleReset))
-	
+
 	override func loadView() {
 		view = contentView
 	}
@@ -28,41 +24,15 @@ final class HomeViewController: UIViewController {
 		setupTableDataSource()
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		
-		
-		
-//		coordinator.showNeedLocationAlert { [weak self] in
-//			self?.viewModel.requestLocationAuthorization()
-//		}
-	}
-	
 	// MARK: Private
 	private func setupNavBar() {
 		title = "MapIt"
-		navigationItem.rightBarButtonItems = [addLocationButton, resetButton]
-		navigationItem.leftBarButtonItem = settingsButton
-
+		navigationItem.rightBarButtonItems = [contentView.addLocationButton, contentView.resetButton]
+		navigationItem.leftBarButtonItem = contentView.settingsButton
 	}
 	
 	private func setupTableDataSource() {
 		tableDataSource = HomeTableDataSource(tableView: contentView.tableView, delgate: self)
-	}
-	
-	// MARK: Handler
-	@objc func handleAddNewLocation() {
-		contentView.showSearchBar()
-	}
-	
-	@objc func handleSettings() {
-		coordinator.showSettings()
-	}
-	
-	@objc func handleReset() {
-		tableDataSource.reset()
-		contentView.removeAllAnnotations()
-		contentView.showNoLocationsLabel()
 	}
 	
 	// MARK: Init
@@ -88,11 +58,22 @@ final class HomeViewController: UIViewController {
 
 // MARK: - HomeViewDelegate
 extension HomeViewController: HomeViewDelegate {
+	
+	func homeViewShouldShowSettings(_ view: HomeView) {
+		coordinator.showSettings()
+	}
+	
+	func homeViewShouldReset(_ view: HomeView) {
+		tableDataSource.reset()
+		contentView.removeAllAnnotations()
+		contentView.showNoLocationsLabel()
+	}
+	
 	func homeView(_ view: HomeView, shouldSearchWithText text: String) {
 		viewModel.searchForAddress(text)
 	}
 	
-	func homeViewShouldCalculateRoute(_ view: HomeView) {
+	func homeViewShouldDisplayRoute(_ view: HomeView) {
 		print("calculating route")
 	}
 	
@@ -101,10 +82,10 @@ extension HomeViewController: HomeViewDelegate {
 
 // MARK: - HomeTableDataSource
 extension HomeViewController: HomeTableDataSourceDelegate {
-	func homeTableDataSource(_ dataSource: HomeTableDataSource, shouldRemoveAnnotationFoLocation location: CLLocation) {
-		contentView.removeAnnotation(atLocation: location)
-	}
 	
+	func homeTableDataSource(_ dataSource: HomeTableDataSource, shouldRemoveAnnotationAtCoordinate coordinate: CLLocationCoordinate2D) {
+		contentView.removeAnnotation(atCoordinate: coordinate)
+	}
 	
 	func homeTableDataSource(_ dataSource: HomeTableDataSource, didChangeNumberOfItems numberOfItems: Int) {
 		
@@ -113,16 +94,15 @@ extension HomeViewController: HomeTableDataSourceDelegate {
 		}
 		
 		if numberOfItems > 1 {
-			contentView.showCaclulateButton()
+			contentView.showRouteButton()
 		} else {
-			contentView.hideCalculateButton()
+			contentView.hideRouteButton()
 		}
 	}
 }
 
 // MARK: - HomeViewModelDelegate
 extension HomeViewController: HomeViewModelDelegate {
-	
 	
 	func homeViewModelDidFailSearch() {
 		contentView.stopActivityIndicator()
@@ -133,7 +113,7 @@ extension HomeViewController: HomeViewModelDelegate {
 		DispatchQueue.main.async { [weak self] in
 			self?.contentView.stopActivityIndicator()
 			
-			self?.coordinator.showSearchResults(searchText: searchText, items: results, completion: { (item) in
+			self?.coordinator.showSearchResults(searchText: searchText, results: results, completion: { (item) in
 				self?.contentView.hideNoLocationsLabel()
 				self?.tableDataSource.add(item: item)
 				
