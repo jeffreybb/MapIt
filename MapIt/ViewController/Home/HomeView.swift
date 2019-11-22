@@ -21,6 +21,7 @@ final class HomeView: UIView {
 	// MARK: Private
 	private lazy var mapView: MKMapView = {
 		let view = MKMapView()
+		view.delegate = self
 		view.showsUserLocation = true
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
@@ -69,8 +70,8 @@ final class HomeView: UIView {
 		button.setTitleColor(.white, for: [])
 		button.layer.cornerRadius = 52/2
 		button.layer.shadowColor = UIColor.systemGray3.cgColor
-		button.layer.shadowOpacity = 1
-		button.layer.shadowRadius = 10
+		button.layer.shadowOpacity = 0.2
+		button.layer.shadowRadius = 5
 		button.layer.shadowOffset = CGSize(width: 0, height: 1)
 		button.layer.borderColor = UIColor.white.cgColor
 		button.layer.borderWidth = 2
@@ -144,6 +145,7 @@ final class HomeView: UIView {
 	
 	// MARK: Handler
 	@objc func handleCalculateRoute() {
+		mapView.removeOverlays(mapView.overlays)
 		delegate.homeViewShouldDisplayRoute(self)
 	}
 	
@@ -216,6 +218,7 @@ final class HomeView: UIView {
 	
 	func addAnnotationToMap(_ annotation: MKAnnotation) {
 		mapView.addAnnotation(annotation)
+		mapView.removeOverlays(mapView.overlays)
 		mapView.focus()
 	}
 	
@@ -224,11 +227,20 @@ final class HomeView: UIView {
 		else { return }
 		
 		mapView.removeAnnotation(annotation)
+		mapView.removeOverlays(mapView.overlays)
 		mapView.focus()
 	}
 	
-	func removeAllAnnotations() {
+	func clearMap() {
 		mapView.removeAnnotations(mapView.annotations)
+		mapView.removeOverlays(mapView.overlays)
+		mapView.focus()
+	}
+	
+	func addRouteToMap(route: [MKRoute]) {
+		let polylines = route.map { $0.polyline }
+		
+		mapView.addOverlays(polylines, level: .aboveRoads)
 	}
 	
 	// MARK: Handler
@@ -267,5 +279,24 @@ extension HomeView: UITextFieldDelegate {
 		hideSearchBar()
 		activityIndicatorView.startAnimating()
 		return true
+	}
+}
+
+// MARK: - MKMapViewDelegate
+extension HomeView: MKMapViewDelegate {
+	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+		if overlay is MKPolyline {
+			let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
+			renderer.lineWidth = 5
+			
+			let index = mapView.overlays.count
+			renderer.strokeColor = index < R.Color.polyline.endIndex
+				? R.Color.polyline[index]
+				: .systemTeal
+			
+			return renderer
+		} else {
+			return MKOverlayRenderer(overlay: overlay)
+		}
 	}
 }

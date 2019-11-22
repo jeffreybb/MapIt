@@ -51,6 +51,53 @@ final class LocationService: NSObject {
 		}
 	}
 	
+	func requestRoute(forMapItems mapItems: [MKMapItem], completion: @escaping ([MKRoute])->()) {
+		print("requesting Route")
+		var routes = [MKRoute]()
+		
+		let group = DispatchGroup()
+		for (index, item) in mapItems.enumerated() {
+			print(index)
+			group.enter()
+			
+			guard index < mapItems.endIndex - 1 else {
+				group.leave()
+				break
+			}
+			
+			performSearchRequest(source: item, destination: mapItems[index + 1]) { (route) in
+				if let route = route {
+					routes.append(route)
+				}
+				group.leave()
+			}
+		}
+		
+		group.notify(queue: .main) {
+			print("ah dun!")
+			completion(routes)
+		}
+		
+	}
+	
+	// MARK: Private
+	private func performSearchRequest(source: MKMapItem, destination: MKMapItem, completion: @escaping (MKRoute?)->()) {
+		let request = MKDirections.Request()
+		request.transportType = .automobile
+		request.source = source
+		request.destination = destination
+		
+		let directions = MKDirections(request: request)
+		directions.calculate { (response, error) in
+			if let error = error {
+				print(error.localizedDescription)
+			}
+			
+			completion(response?.routes.first)
+		}
+		
+	}
+	
 }
 
 // MARK: - CLLocationManagerDelegate

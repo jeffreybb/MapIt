@@ -7,19 +7,20 @@
 //
 
 import UIKit
-import CoreLocation
+import MapKit
 
 protocol HomeTableDataSourceDelegate: class {
 	func homeTableDataSource(_ dataSource: HomeTableDataSource, didChangeNumberOfItems numberOfItems: Int)
-	func homeTableDataSource(_ dataSource: HomeTableDataSource, shouldRemoveAnnotationAtCoordinate coordinate: CLLocationCoordinate2D)
+	func homeTableDataSource(_ dataSource: HomeTableDataSource, shouldRemoveMapItem mapItem: MKMapItem)
 }
 
 final class HomeTableDataSource: NSObject {
 	
+	// MARK: Init
+	
 	private unowned let delegate: HomeTableDataSourceDelegate
 	private let tableView: UITableView
 	private var items = [LocationItem]()
-	
 	
 	init(tableView: UITableView, delgate: HomeTableDataSourceDelegate) {
 		self.tableView = tableView
@@ -28,6 +29,8 @@ final class HomeTableDataSource: NSObject {
 		
 		setupTableView()
 	}
+	
+	// MARK: Private
 	
 	private func setupTableView() {
 		tableView.register(HomeTableCell.self, forCellReuseIdentifier: HomeTableCell.resuseIdentifier)
@@ -73,10 +76,6 @@ extension HomeTableDataSource: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension HomeTableDataSource: UITableViewDelegate {
 	
-	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 52
-	}
-	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let view = UIView()
 		view.backgroundColor = .systemBackground
@@ -97,14 +96,12 @@ extension HomeTableDataSource: UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-		let delete = UIContextualAction(style: .destructive, title: "Remove") { [weak self] (action, _, completion) in
+		let delete = UIContextualAction(style: .destructive, title: "Remove") { [weak self] (_, _, completion) in
 			
 			guard let aSelf = self else { return }
 			
-			if let coordinate = aSelf.items[indexPath.row].mapItem.placemark.location?.coordinate {
-				aSelf.delegate.homeTableDataSource(aSelf, shouldRemoveAnnotationAtCoordinate: coordinate)
-			}
-			
+			let mapItem = aSelf.items[indexPath.row].mapItem
+			aSelf.delegate.homeTableDataSource(aSelf, shouldRemoveMapItem: mapItem)
 			aSelf.items.remove(at: indexPath.row)
 			tableView.deleteRows(at: [indexPath], with: .automatic)
 			aSelf.updateNumberOfItems()

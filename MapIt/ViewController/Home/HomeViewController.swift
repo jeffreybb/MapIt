@@ -65,7 +65,7 @@ extension HomeViewController: HomeViewDelegate {
 	
 	func homeViewShouldReset(_ view: HomeView) {
 		tableDataSource.reset()
-		contentView.removeAllAnnotations()
+		contentView.clearMap()
 		contentView.showNoLocationsLabel()
 	}
 	
@@ -74,7 +74,7 @@ extension HomeViewController: HomeViewDelegate {
 	}
 	
 	func homeViewShouldDisplayRoute(_ view: HomeView) {
-		print("calculating route")
+		viewModel.calculateRoute()
 	}
 	
 	
@@ -82,9 +82,12 @@ extension HomeViewController: HomeViewDelegate {
 
 // MARK: - HomeTableDataSource
 extension HomeViewController: HomeTableDataSourceDelegate {
-	
-	func homeTableDataSource(_ dataSource: HomeTableDataSource, shouldRemoveAnnotationAtCoordinate coordinate: CLLocationCoordinate2D) {
+
+	func homeTableDataSource(_ dataSource: HomeTableDataSource, shouldRemoveMapItem mapItem: MKMapItem) {
+		let coordinate = mapItem.placemark.coordinate
 		contentView.removeAnnotation(atCoordinate: coordinate)
+		viewModel.removeMapItem(mapItem)
+		viewModel.calculateRoute()
 	}
 	
 	func homeTableDataSource(_ dataSource: HomeTableDataSource, didChangeNumberOfItems numberOfItems: Int) {
@@ -103,6 +106,13 @@ extension HomeViewController: HomeTableDataSourceDelegate {
 
 // MARK: - HomeViewModelDelegate
 extension HomeViewController: HomeViewModelDelegate {
+	func homeViewModel(didCaclulateRoute route: [MKRoute]) {
+		print("Route Established: \(route)")
+		DispatchQueue.main.async { [weak self] in
+			self?.contentView.addRouteToMap(route: route)
+		}
+	}
+	
 	
 	func homeViewModelDidFailSearch() {
 		contentView.stopActivityIndicator()
@@ -114,8 +124,10 @@ extension HomeViewController: HomeViewModelDelegate {
 			self?.contentView.stopActivityIndicator()
 			
 			self?.coordinator.showSearchResults(searchText: searchText, results: results, completion: { (item) in
+				
 				self?.contentView.hideNoLocationsLabel()
 				self?.tableDataSource.add(item: item)
+				self?.viewModel.addSelectedMapItem(item.mapItem)
 				
 				guard let annotation = self?.viewModel.createAnnotation(forLocation: item.mapItem.placemark.location) else { return }
 				
@@ -128,7 +140,6 @@ extension HomeViewController: HomeViewModelDelegate {
 
 	func homeViewModel(didUpdateCurrentLocation annotation: MKAnnotation) {
 		tableDataSource.currentUserLocation = annotation.location
-//		contentView.addAnnotationToMap(annotation)
 	}
 
 }
