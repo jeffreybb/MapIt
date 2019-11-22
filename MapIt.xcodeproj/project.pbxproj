@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F31F3212386DF01002A0F0D /* R.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F3202386DF01002A0F0D /* R.swift */; };
 		1F31F3232386DF51002A0F0D /* BaseNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F3222386DF51002A0F0D /* BaseNavController.swift */; };
 		1F31F3262386E40D002A0F0D /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F3252386E40D002A0F0D /* LocationService.swift */; };
 		1F31F3282386E7FF002A0F0D /* HomeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F31F3272386E7FF002A0F0D /* HomeTableCell.swift */; };
@@ -28,7 +27,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F31F3202386DF01002A0F0D /* R.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.swift; sourceTree = "<group>"; };
 		1F31F3222386DF51002A0F0D /* BaseNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavController.swift; sourceTree = "<group>"; };
 		1F31F3252386E40D002A0F0D /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		1F31F3272386E7FF002A0F0D /* HomeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableCell.swift; sourceTree = "<group>"; };
@@ -71,14 +69,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		1F31F31F2386DEF1002A0F0D /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				1F31F3202386DF01002A0F0D /* R.swift */,
-			);
-			path = Resource;
-			sourceTree = "<group>";
-		};
 		1F31F3242386E3FD002A0F0D /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,7 +104,6 @@
 				1F31F31E2386DDD8002A0F0D /* View */,
 				1F5A07D72386D70E003D16EC /* ViewController */,
 				1F5A07E62386DBC3003D16EC /* Extension */,
-				1F31F31F2386DEF1002A0F0D /* Resource */,
 			);
 			path = MapIt;
 			sourceTree = "<group>";
@@ -235,7 +224,6 @@
 				1F5A07C42386D6CE003D16EC /* AppDelegate.swift in Sources */,
 				1F31F32A2386EF9F002A0F0D /* LocationItem.swift in Sources */,
 				1F31F32E23871595002A0F0D /* MKAnnotation+CLLocation.swift in Sources */,
-				1F31F3212386DF01002A0F0D /* R.swift in Sources */,
 				1F31F3232386DF51002A0F0D /* BaseNavController.swift in Sources */,
 				1F31F33223872E29002A0F0D /* MKMapView+Bounds.swift in Sources */,
 				1F5A07E02386D7C9003D16EC /* HomeViewModel.swift in Sources */,
